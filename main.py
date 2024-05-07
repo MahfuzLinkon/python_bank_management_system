@@ -87,6 +87,7 @@ class Bank:
         self.isBankrupt = False
         self.isLoan = True
         self.total_loan = 0
+        self.admins = {}
 
     def create_account(self, account):
         self.accounts[account.account_number] = account
@@ -144,7 +145,7 @@ user2 = Account("Rizan", "rizan@mail.com", "Dhaka", 123, "Current")
 abc_bank.create_account(user1)
 abc_bank.create_account(user2)
 
-current_user = admin
+current_user = None
 while True:
     if current_user == None:
         ch = input("\nLogin ? Register ? Exit (L/R/X): ")
@@ -175,14 +176,27 @@ while True:
             else:
                 print("\nInvalid Input!")
         elif ch == "L":
-            account_number = input("\tEnter Account Number: ")
-            password = int(input("\tEnter your password: "))
+            print("1. Admin Login")
+            print("2. User Login")
+            print("3. Main Menu")
 
-            if account_number in abc_bank.accounts:
-                if abc_bank.accounts[account_number].password == password:
-                    current_user = abc_bank.accounts[account_number]
-                else:
-                    print("\n\tInvalid Account Number Or Password!")
+            ch = int(input("Enter Your Choice:"))
+            if ch == 1 or ch == 2:
+                email = input("\tEnter Email: ")
+                password = int(input("\tEnter your password: "))
+                valid_account = False
+                for _, account in abc_bank.accounts.items():
+                    if account.email == email and account.password == password:
+                        valid_account = True
+                        current_user = account
+                        break
+                if valid_account == False:
+                    print("\n\tInvalid Email Or Password!")
+            elif ch == 3:
+                current_user = None
+            else:
+                print("\nInvalid Input!")
+
         elif ch == "X":
             break
         else:
@@ -200,8 +214,7 @@ while True:
             print("\t6.  Turn On Loan")
             print("\t7.  Turn On Bankrupt")
             print("\t8.  Turn Off Bankrupt")
-            print("\t9.  Create Account")
-            print("\t10. Log Out")
+            print("\t9. Log Out")
 
             ch = int(input("Enter Your Choice: "))
             if ch == 1:
@@ -222,15 +235,6 @@ while True:
             elif ch == 8:
                 abc_bank.off_bankrupt()
             elif ch == 9:
-                name = input("\tEnter name: ")
-                email = input("\tEnter email: ")
-                address = input("\tEnter address: ")
-                password = input("\tEnter password: ")
-                account_type = input("\tEnter account type: ")
-                user = Account(name, email, address, password, account_type)
-                abc_bank.create_account(user)
-                print("\n\tNew Account Created Successfully!")
-            elif ch == 10:
                 current_user = None
             else:
                 print("\nInvalid Input!")
