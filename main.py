@@ -159,7 +159,7 @@ while True:
                 name = input("\tEnter your name: ")
                 email = input("\tEnter your email: ")
                 address = input("\tEnter your address: ")
-                password = input("\tEnter your password: ")
+                password = int(input("\tEnter your password: "))
                 account_type = input("\tEnter your account type: ")
                 user = Account(name, email, address, password, account_type)
                 current_user = abc_bank.create_account(user)
@@ -167,7 +167,7 @@ while True:
                 name = input("\tEnter your name: ")
                 email = input("\tEnter your email: ")
                 address = input("\tEnter your address: ")
-                password = input("\tEnter your password: ")
+                password = int(input("\tEnter your password: "))
                 account_type = "Admin"
                 user = Account(name, email, address, password, account_type)
                 current_user = abc_bank.create_account(user)
@@ -192,6 +192,7 @@ while True:
                         break
                 if valid_account == False:
                     print("\n\tInvalid Email Or Password!")
+
             elif ch == 3:
                 current_user = None
             else:
